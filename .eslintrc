@@ -1,0 +1,11 @@
+{
+  "extends": "@antfu",
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "brace-style": [2, "1tbs"],
+    "operator-linebreak": "off",
+    "indent": "off",
+    "@typescript-eslint/indent": "off"
+  }
+}
