@@ -1,6 +1,6 @@
-export type Maybe<T> = T | Nothing
-
 export type Nothing = null | undefined
+
+export type Maybe<T> = T | Nothing
 
 export enum GameStatus {
   NoGame,
@@ -18,4 +18,3 @@ export enum UpgradeType {
   BuildTower,
   RepairDefense,
 }
-

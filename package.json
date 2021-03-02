@@ -1,4 +1,6 @@
 {
+  "name": "juralen-vite",
+  "description": "Implementation of Juralen game in Vue 3/Vite",
   "private": true,
   "scripts": {
     "build": "cross-env NODE_ENV=production vite-ssg build",
