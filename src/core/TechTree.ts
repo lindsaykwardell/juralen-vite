@@ -1,4 +1,5 @@
-import { Maybe, nothing } from './types'
+import { Maybe, nothing, Int } from './types'
+import { UnitType } from './Unit'
 
 export enum LevelOne {
   BuildFarms = 'BuildFarms',
@@ -41,16 +42,16 @@ export const emptyTechTree = () => ({
   levelFour: nothing,
 })
 
-export const getTechCost = (level: TechLevel): number => {
+export const getTechCost = (level: TechLevel): Int => {
   switch (level) {
     case TechLevel.LevelOne:
-      return 3
+      return 3n
     case TechLevel.LevelTwo:
-      return 5
+      return 5n
     case TechLevel.LevelThree:
-      return 8
+      return 8n
     case TechLevel.LevelFour:
-      return 13
+      return 13n
   }
 }
 
@@ -95,7 +96,7 @@ const techDescription: { [key: string]: TechDescription } = {
 }
 
 export type TechDetails = TechDescription & {
-  cost: number
+  cost: Int
   level: TechLevel
   tech: LevelOne | LevelTwo | LevelThree | LevelFour
 }
@@ -167,4 +168,43 @@ export const getTechLevelDetails = (
         },
       ]
   }
+}
+
+export const researchedUnits = (techTree: TechTree): UnitType[] => {
+  const units: UnitType[] = [UnitType.Soldier]
+
+  if (techTree.levelTwo !== nothing) {
+    switch (techTree.levelTwo) {
+      case LevelTwo.BuildWarriors:
+        units.push(UnitType.Warrior)
+        break
+      case LevelTwo.BuildArchers:
+        units.push(UnitType.Archer)
+        break
+    }
+  }
+
+  if (techTree.levelThree !== nothing) {
+    switch (techTree.levelThree) {
+      case LevelThree.BuildKnights:
+        units.push(UnitType.Knight)
+        break
+      case LevelThree.BuildRogues:
+        units.push(UnitType.Rogue)
+        break
+    }
+  }
+
+  if (techTree.levelFour !== nothing) {
+    switch (techTree.levelFour) {
+      case LevelFour.BuildWizards:
+        units.push(UnitType.Wizard)
+        break
+      case LevelFour.BuildPriests:
+        units.push(UnitType.Priest)
+        break
+    }
+  }
+
+  return units
 }

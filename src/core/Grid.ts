@@ -6,12 +6,12 @@ import {
   getDistance,
   Structure,
 } from './Cell'
-import { Maybe, nothing } from './types'
+import { Maybe, nothing, Int } from './types'
 
 export type Grid = Cell[][]
 
 export const findCell = ({ x, y }: Loc) => (grid: Grid): Cell =>
-  grid?.[y]?.[x] || emptyCell()
+  grid?.[Number(y)]?.[Number(x)] || emptyCell()
 
 export const validStartingCell = (loc: Loc) => (grid: Grid): Maybe<Cell> => {
   const cell: Cell = findCell(loc)(grid)
@@ -36,29 +36,29 @@ export const replaceCell = (grid: Grid, newCell: Cell): Grid =>
 export const distanceToEnemy = (
   grid: Grid,
   loc: Loc,
-  playerId: number,
-): number =>
+  playerId: Int,
+): Int =>
   gridToList(grid).reduce((distance, cell) => {
     if (!cell.controlledBy || cell.controlledBy === playerId) return distance
 
     const newDistance = getDistance(loc)({ x: cell.x, y: cell.y })
 
     return distance > newDistance ? newDistance : distance
-  }, 100)
+  }, 100n)
 
-export const farmCountControlledBy = (grid: Grid, playerId: number): number =>
+export const farmCountControlledBy = (grid: Grid, playerId: Int): Int =>
   grid.reduce(
     (rowCount, row) =>
       rowCount +
       row.reduce(
         (cellCount, cell) =>
-          cellCount + (cell.controlledBy === playerId ? cell.farms : 0),
-        0,
+          cellCount + (cell.controlledBy === playerId ? cell.farms : 0n),
+        0n,
       ),
-    0,
+    0n,
   )
 
-export const townCountControlledBy = (grid: Grid, playerId: number): number =>
+export const townCountControlledBy = (grid: Grid, playerId: Int): Int =>
   grid.reduce(
     (rowCount, row) =>
       rowCount +
@@ -66,11 +66,11 @@ export const townCountControlledBy = (grid: Grid, playerId: number): number =>
         (cellCount, cell) =>
           cellCount +
           (cell.controlledBy !== playerId
-            ? 0
+            ? 0n
             : cell.structure !== Structure.None
-            ? 1 + cell.towers
-            : 0),
-        0,
+            ? 1n + cell.towers
+            : 0n),
+        0n,
       ),
-    0,
+    0n,
   )

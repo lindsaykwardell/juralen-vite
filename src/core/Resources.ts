@@ -1,14 +1,16 @@
+import { Int } from './types'
+
 export type Resources = {
   actions: number
-  gold: number
+  gold: Int
 }
 
 export const emptyResources = (): Resources => ({
   actions: 0,
-  gold: 0,
+  gold: 0n,
 })
 
-export const spendGold = (cost: number) => (
+export const spendGold = (cost: Int) => (
   resources: Resources,
 ): Resources => ({ ...resources, gold: resources.gold - cost })
 

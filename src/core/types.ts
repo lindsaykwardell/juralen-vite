@@ -2,6 +2,12 @@ export type Nothing = null | undefined
 export const nothing: Nothing = null
 
 export type Maybe<T> = T | Nothing
+export type Int = bigint
+export const Integer = {
+  abs(x: Int): Int {
+    return BigInt(Number(x))
+  },
+}
 
 export enum GameStatus {
   NoGame,

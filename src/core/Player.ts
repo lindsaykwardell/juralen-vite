@@ -2,6 +2,7 @@ import { readonly } from 'vue'
 import { Resources } from './Resources'
 import { AnalyzerMode } from './Analyzer'
 import { TechTree, emptyTechTree } from './TechTree'
+import { Int } from './types'
 
 export enum PlayerColor {
   Red = 'Red',
@@ -71,37 +72,37 @@ export const isDark = (color: PlayerColor): boolean => {
 }
 
 export type Player = {
-  id: number
+  id: Int
   name: string
   resources: Resources
   hasLost: boolean
   isHuman: boolean
   analyzer: AnalyzerMode
   color: PlayerColor
-  score: number
+  score: Int
   techTree: TechTree
 }
 
 export type NewPlayer = {
-  id: number
+  id: Int
   name: string
   isHuman: boolean
   analyzer: AnalyzerMode
   color: PlayerColor
 }
 
-export const generatePlayer = (newPlayer: NewPlayer, id: number): Player => ({
+export const generatePlayer = (newPlayer: NewPlayer, id: Int): Player => ({
   id,
   name: newPlayer.name,
   resources: {
     actions: 1,
-    gold: 2,
+    gold: 2n,
   },
   hasLost: false,
   isHuman: newPlayer.isHuman,
   analyzer: newPlayer.analyzer,
   color: newPlayer.color,
-  score: 2,
+  score: 2n,
   techTree: emptyTechTree(),
 })
 
@@ -113,20 +114,20 @@ export const revertToNewPlayer = (player: Player): NewPlayer => ({
   color: player.color,
 })
 
-export const emptyPlayer = () => ({
-  id: -1,
+export const emptyPlayer = (): Player => ({
+  id: -1n,
   name: '',
   resources: {
     actions: -1,
-    gold: -1,
+    gold: -1n,
   },
   hasLost: true,
   isHuman: false,
   analyzer: AnalyzerMode.Default,
   color: PlayerColor.None,
-  score: 0,
+  score: 0n,
   techTree: emptyTechTree(),
 })
 
-export const getPlayer = (id: number) => (players: Player[]): Player =>
+export const getPlayer = (id: Int) => (players: Player[]): Player =>
   players.find(player => player.id === id) || emptyPlayer()
