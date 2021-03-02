@@ -1,4 +1,5 @@
 export type Nothing = null | undefined
+export const nothing: Nothing = null
 
 export type Maybe<T> = T | Nothing
 

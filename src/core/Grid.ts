@@ -6,7 +6,7 @@ import {
   getDistance,
   Structure,
 } from './Cell'
-import { Maybe, Nothing } from './types'
+import { Maybe, nothing } from './types'
 
 export type Grid = Cell[][]
 
@@ -16,7 +16,7 @@ export const findCell = ({ x, y }: Loc) => (grid: Grid): Cell =>
 export const validStartingCell = (loc: Loc) => (grid: Grid): Maybe<Cell> => {
   const cell: Cell = findCell(loc)(grid)
 
-  return hasStructure(cell) ? null : cell
+  return hasStructure(cell) ? nothing : cell
 }
 
 export const gridToList = (grid: Grid, list: Cell[] = []): Cell[] => {
